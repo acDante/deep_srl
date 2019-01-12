@@ -79,8 +79,11 @@ def train_tagger(args):
     # Save word and label dict to model directory.
     data.word_dict.save(os.path.join(args.model, 'word_dict'))
     data.label_dict.save(os.path.join(args.model, 'label_dict'))
-    writer = open(os.path.join(args.model, 'checkpoints.tsv'), 'w')
-    writer.write('step\tdatetime\tdev_loss\tdev_accuracy\tbest_dev_accuracy\n')
+    # writer = open(os.path.join(args.model, 'checkpoints.tsv'), 'w')
+    # writer.write('step\tdatetime\tdev_loss\tdev_accuracy\tbest_dev_accuracy\n')
+    print ('step\tdatetime\tdev_loss\tdev_accuracy\tbest_dev_accuracy\n')
+
+    print ("@Debug: Finish initialization!")
 
   with Timer('Building model'):
     model = BiLSTMTaggerModel(data, config=config)  
@@ -88,6 +91,7 @@ def train_tagger(args):
       print param, param.name, param.shape.eval()
     loss_function = model.get_loss_function()
     eval_function = model.get_eval_function()
+    print ("@Debug: Finish Building the model!")
   
   while epoch < config.max_epochs:
     with Timer("Epoch%d" % epoch) as timer:
@@ -99,10 +103,11 @@ def train_tagger(args):
         i += 1
         global_step += 1
         if i % 400 == 0:
-          timer.tick("{} training steps, loss={:.3f}".format(i, train_loss / i))
+          #timer.tick("{} training steps, loss={:.3f}".format(i, train_loss / i))
+          print ("{} training steps, loss={:.3f}".format(i, train_loss / i))
         
     train_loss = train_loss / i
-    print("Epoch {}, steps={}, loss={:.3f}".format(epoch, i, train_loss))
+    print ("Epoch {}, steps={}, loss={:.3f}".format(epoch, i, train_loss))
     i = 0
     epoch += 1
     train_loss = 0.0
@@ -111,7 +116,7 @@ def train_tagger(args):
         evaluate_tagger(model, eval_function, batched_dev_data, evaluator, writer, global_step)
 
   # Done. :)
-  writer.close()        
+  # writer.close()        
 
 if __name__ == "__main__": 
   parser = argparse.ArgumentParser(description=__doc__)
