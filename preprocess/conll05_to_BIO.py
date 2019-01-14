@@ -42,15 +42,15 @@ def print_new_sentence():
   #print len(props), len(tags)
   propid_labels = ['O' for _ in words]
 
-    # For debuging
-  print("props:")
-  print(props)
-  print("propid_labels:")
-  print(propid_labels)
-  print("tags:")
-  print(tags)
-  print("words:")
-  print(words)
+  #   # For debuging
+  # print("props:")
+  # print(props)
+  # print("propid_labels:")
+  # print(propid_labels)
+  # print("tags:")
+  # print(tags)
+  # print("words:")
+  # print(words)
   
 
   assert len(props) == len(tags)
