@@ -35,6 +35,17 @@ def print_new_sentence():
   global fout
   global domain
 
+
+  # For debuging
+  print("props:")
+  print(props)
+  print("propid_labels:")
+  print(propid_labels)
+  print("tags:")
+  print(tags)
+  print("words:")
+  print(words)
+
   #if len(props) > 0:
   total_props += len(props)
   total_sents += 1
