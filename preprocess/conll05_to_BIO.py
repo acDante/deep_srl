@@ -36,7 +36,13 @@ def print_new_sentence():
   global domain
 
 
-  # For debuging
+  #if len(props) > 0:
+  total_props += len(props)
+  total_sents += 1
+  #print len(props), len(tags)
+  propid_labels = ['O' for _ in words]
+
+    # For debuging
   print("props:")
   print(props)
   print("propid_labels:")
@@ -45,12 +51,7 @@ def print_new_sentence():
   print(tags)
   print("words:")
   print(words)
-
-  #if len(props) > 0:
-  total_props += len(props)
-  total_sents += 1
-  #print len(props), len(tags)
-  propid_labels = ['O' for _ in words]
+  
 
   assert len(props) == len(tags)
   for t in range(len(props)):
