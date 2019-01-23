@@ -16,6 +16,6 @@
   "per_layer_dropout":true,
 
 	"trainer"   : "Adadelta",
-	"max_epochs": 5,
+	"max_epochs": 500,
 	"checkpoint_every_x_epochs": 1
 }

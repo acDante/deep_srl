@@ -7,6 +7,14 @@ import numpy
 import theano
 import theano.tensor as tensor
 
+# Functions for debugging
+def inspect_inputs(i, node, fn):
+    print(i, node, "input(s) value(s):", [input[0] for input in fn.inputs],
+          end='')
+
+def inspect_outputs(i, node, fn):
+    print(" output(s) value(s):", [output[0] for output in fn.outputs])
+
 class BiLSTMTaggerModel(object):
   """ Constructs the network and builds the following Theano functions:
       - pred_function: Takes input and mask, returns prediction.
@@ -112,7 +120,9 @@ class BiLSTMTaggerModel(object):
                  updates=updates,
                  on_unused_input='warn',
                  givens=({self.is_train: numpy.cast['int8'](1)}), 
-                 mode='DebugMode')
+                 mode=theano.compile.MonitorMode(
+                        pre_func=inspect_inputs,
+                        post_func=inspect_outputs)))
   
   def save(self, filepath):
     """ Save model parameters to file.
