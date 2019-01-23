@@ -9,11 +9,21 @@ import theano.tensor as tensor
 
 # Functions for debugging
 def inspect_inputs(i, node, fn):
-    print(i, node, "input(s) value(s):", [input[0] for input in fn.inputs],
-          end='')
+    print(i, node, "input(s) value(s):", [input[0] for input in fn.inputs])
 
 def inspect_outputs(i, node, fn):
     print(" output(s) value(s):", [output[0] for output in fn.outputs])
+
+def detect_nan(i, node, fn):
+    for output in fn.outputs:
+        if (not isinstance(output[0], numpy.random.RandomState) and
+            numpy.isnan(output[0]).any()):
+            print('*** NaN detected ***')
+            theano.printing.debugprint(node)
+            print('Inputs : %s' % [input[0] for input in fn.inputs])
+            print('Outputs: %s' % [output[0] for output in fn.outputs])
+            break
+
 
 class BiLSTMTaggerModel(object):
   """ Constructs the network and builds the following Theano functions:
@@ -121,8 +131,7 @@ class BiLSTMTaggerModel(object):
                  on_unused_input='warn',
                  givens=({self.is_train: numpy.cast['int8'](1)}), 
                  mode=theano.compile.MonitorMode(
-                        pre_func=inspect_inputs,
-                        post_func=inspect_outputs)))
+                        post_func=detect_nan)))
   
   def save(self, filepath):
     """ Save model parameters to file.
