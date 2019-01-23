@@ -86,9 +86,10 @@ def train_tagger(args):
     print ("@Debug: Finish initialization!")
 
   with Timer('Building model'):
-    model = BiLSTMTaggerModel(data, config=config)  
+    model = BiLSTMTaggerModel(data, config=config)
+    print ("@Debug: Finish loading the model !") 
     for param in model.params:
-      print param, param.name, param.shape.eval()
+      print (param, param.name, param.shape.eval())
     loss_function = model.get_loss_function()
     eval_function = model.get_eval_function()
     print ("@Debug: Finish Building the model!")

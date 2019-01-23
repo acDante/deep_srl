@@ -13,7 +13,7 @@ class BiLSTMTaggerModel(object):
       - loss_function: Takes input, mask and labels, returns the final cross entropy loss (scalar).
   """
   def __init__(self, data, config, fast_predict=False):
-    self.embedding_shapes = data.embedding_shapes;
+    self.embedding_shapes = data.embedding_shapes
     self.lstm_type = config.lstm_cell  
     self.lstm_hidden_size = int(config.lstm_hidden_size)
     self.num_lstm_layers = int(config.num_lstm_layers)
