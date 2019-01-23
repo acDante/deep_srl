@@ -131,7 +131,7 @@ class BiLSTMTaggerModel(object):
                  on_unused_input='warn',
                  givens=({self.is_train: numpy.cast['int8'](1)}), 
                  mode=theano.compile.MonitorMode(
-                        post_func=detect_nan)))
+                        post_func=detect_nan))
   
   def save(self, filepath):
     """ Save model parameters to file.
