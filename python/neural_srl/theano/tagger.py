@@ -78,7 +78,8 @@ class BiLSTMTaggerModel(object):
                  name='f_eval',
                  allow_input_downcast=True,
                  on_unused_input='warn',
-                 givens=({self.is_train:  numpy.cast['int8'](0)}))
+                 givens=({self.is_train:  numpy.cast['int8'](0)}),  
+                 mode='DebugMode')
     
   def get_distribution_function(self):
     """ Return predictions and scores of shape [batch_size, time_steps, label space size].
@@ -91,7 +92,8 @@ class BiLSTMTaggerModel(object):
                  name='f_pred',
                  allow_input_downcast=True,
                  on_unused_input='warn',
-                 givens=({self.is_train:  numpy.cast['int8'](0)}))
+                 givens=({self.is_train:  numpy.cast['int8'](0)}),
+                 mode='DebugMode')
   
   def get_loss_function(self):
     """ We should feed in non-dimshuffled inputs x0, mask0 and y0.
@@ -105,7 +107,8 @@ class BiLSTMTaggerModel(object):
                  name='f_loss',
                  updates=updates,
                  on_unused_input='warn',
-                 givens=({self.is_train: numpy.cast['int8'](1)}))
+                 givens=({self.is_train: numpy.cast['int8'](1)}), 
+                 mode='DebugMode')
   
   def save(self, filepath):
     """ Save model parameters to file.
