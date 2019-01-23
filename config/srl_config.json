@@ -15,7 +15,7 @@
   "recurrent_dropout_prob":0.1,
   "per_layer_dropout":true,
 
-	"trainer"   : "adadelta",
-	"max_epochs": 500,
+	"trainer"   : "Adadelta",
+	"max_epochs": 5,
 	"checkpoint_every_x_epochs": 1
 }
