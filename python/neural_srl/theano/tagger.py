@@ -99,9 +99,12 @@ class BiLSTMTaggerModel(object):
     """ We should feed in non-dimshuffled inputs x0, mask0 and y0.
     """
     loss = CrossEntropyLoss().connect(self.scores, self.mask, self.y)
+    print ("cross entropy loss\n")
     grads = gradient_clipping(tensor.grad(loss, self.params),
                   self.max_grad_norm)
+    print ("gradient clipping\n")
     updates = adadelta(self.params, grads)
+    print ("Adadelta\n")
 
     return theano.function([self.x0, self.mask0, self.y0], loss,
                  name='f_loss',
